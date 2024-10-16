@@ -9,11 +9,13 @@
   },
   "scripts": {
     "start": "node app.js",
-    "register": "node commands.js"
+    "register": "node commands.js",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.7",
     "discord-interactions": "^4.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.21.1"
