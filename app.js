@@ -47,6 +47,43 @@ app.post(
         });
       }
 
+      if (name === "stats") {
+        const username = req.body.data.options[0].value;
+        const config = {
+          headers: {
+            Authorization: process.env.FORTNITE_KEY,
+          },
+          params: {
+            name: username,
+          },
+        };
+        try {
+          const stats = await axios.get(
+            "https://fortnite-api.com/v2/stats/br/v2",
+            config
+          );
+
+          const overall = stats.data.data.stats.all.overall;
+          const userStats = `wins: ${overall.wins}\nkills: ${overall.kills}\nkd: ${overall.kd}`;
+          return res.send({
+            type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+            data: {
+              content: userStats,
+            },
+          });
+        } catch (err) {
+          console.log(err.response.data);
+          if (err.status === 404) {
+            return res.send({
+              type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+              data: {
+                content: "Username not found..",
+              },
+            });
+          }
+        }
+      }
+
       console.error(`unknown command: ${name}`);
       return res.status(400).json({ error: "unknown command" });
     }
