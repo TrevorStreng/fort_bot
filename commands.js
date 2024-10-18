@@ -16,6 +16,22 @@ const DROP_COMMAND = {
   integration_types: [0, 1],
   contexts: [0, 1, 2],
 };
+const STATS_COMMAND = {
+  name: "stats",
+  description: "Get player stats",
+  options: [
+    {
+      type: 3,
+      name: "username",
+      description: "provide username",
+      required: true,
+      // value: "",
+    },
+  ],
+  type: 1,
+  integration_types: [0, 1],
+  contexts: [0, 1, 2],
+};
 
-const ALL_COMMANDS = [TEST_COMMAND, DROP_COMMAND];
+const ALL_COMMANDS = [TEST_COMMAND, DROP_COMMAND, STATS_COMMAND];
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);
