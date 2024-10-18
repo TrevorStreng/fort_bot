@@ -23,14 +23,14 @@ app.post(
     if (type === InteractionType.APPLICATION_COMMAND) {
       const { name } = data;
 
-      if (name === "testing") {
-        return res.send({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: `hello world`,
-          },
-        });
-      }
+      // if (name === "testing") {
+      //   return res.send({
+      //     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      //     data: {
+      //       content: `hello world`,
+      //     },
+      //   });
+      // }
 
       if (name === "drop") {
         const locations = await axios.get("https://fortnite-api.com/v1/map");
