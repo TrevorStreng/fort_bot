@@ -9,6 +9,7 @@ import axios from "axios";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+// app.use(express.json());
 
 app.post(
   "/interactions",
@@ -22,15 +23,6 @@ app.post(
 
     if (type === InteractionType.APPLICATION_COMMAND) {
       const { name } = data;
-
-      // if (name === "testing") {
-      //   return res.send({
-      //     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      //     data: {
-      //       content: `hello world`,
-      //     },
-      //   });
-      // }
 
       if (name === "drop") {
         const locations = await axios.get("https://fortnite-api.com/v1/map");
@@ -48,7 +40,7 @@ app.post(
       }
 
       if (name === "stats") {
-        const username = req.body.data.options[0].value;
+        const username = data.options[0].value;
         const config = {
           headers: {
             Authorization: process.env.FORTNITE_KEY,
@@ -62,7 +54,6 @@ app.post(
             "https://fortnite-api.com/v2/stats/br/v2",
             config
           );
-
           const overall = stats.data.data.stats.all.overall;
           const userStats = `wins: ${overall.wins}\nkills: ${overall.kills}\nkd: ${overall.kd}`;
           return res.send({

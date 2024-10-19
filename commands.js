@@ -1,14 +1,6 @@
 import "dotenv/config";
 import { InstallGlobalCommands } from "./utils.js";
 
-// const TEST_COMMAND = {
-//   name: "testing",
-//   description: "Basic command for fort",
-//   type: 1,
-//   integration_types: [0, 1],
-//   contexts: [0, 1, 2],
-// };
-
 const DROP_COMMAND = {
   name: "drop",
   description: "Where we dropping boys?",
