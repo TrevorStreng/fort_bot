@@ -6,11 +6,19 @@ import {
 import "dotenv/config";
 import express from "express";
 import axios from "axios";
-import { functions } from "firebase-functions";
+import { onRequest } from "firebase-functions/v2/https";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 // app.use(express.json());
+app.use(
+  cors({
+    origin: "*", // Replace with your actual origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Enable credentials
+  })
+);
 
 app.get("/", (req, res) => {
   res.send('"hello from aws');
@@ -96,3 +104,4 @@ app.post(
 //   console.log("Listening on port", PORT);
 // });
 export default app;
+// export const fortbot = onRequest(app);
