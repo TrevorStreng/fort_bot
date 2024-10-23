@@ -13,7 +13,8 @@ process.env.FORTNITE_KEY = "fortnite key test";
 // * comment out
 // * verifyKeyMiddleware(process.env.PUBLIC_KEY),
 // * and
-// * app.listen() to get rid of the jest warning
+// * app.listen() to get rid of the jest warning or change env.ENVIRONMENT='test'
+// * app.use(cors({...}))
 // & uncomment
 // & app.use(express.json());
 
@@ -82,7 +83,9 @@ describe("Discord bot Interactions Tests", () => {
         },
       });
     expect(res.statusCode).toBe(200);
-    expect(res.body.data.content).toBe("wins: 10\nkills: 100\nkd: 2.1");
+    expect(res.body.data.content).toBe(
+      "testuser\nwins: 10\nkills: 100\nkd: 2.1"
+    );
   });
 
   it("should return 'Username not found' for missing user", async () => {

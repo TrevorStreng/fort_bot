@@ -6,33 +6,23 @@ import {
 import "dotenv/config";
 import express from "express";
 import axios from "axios";
-import { onRequest } from "firebase-functions/v2/https";
 import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 // app.use(express.json());
+
 app.use(
   cors({
     origin: "*", // Replace with your actual origin
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: "GET,POST",
     credentials: true, // Enable credentials
   })
 );
 
-app.get("/", (req, res) => {
-  res.send('"hello from aws');
-});
-
-// if (process.env.environment !== "dev") {
-//   process.env.APP_ID = functions.config().fortbot.app_id;
-//   process.env.DISCORD_TOKEN = functions.config().fortbot.discord_token;
-//   process.env.PUBLIC_KEY = functions.config().fortbot.public_key;
-//   process.env.FORTNITE_KEY = functions.config().fortbot.fortnite_key;
-// }
 app.post(
   "/interactions",
-  verifyKeyMiddleware(process.env.PUBLIC_KEY),
+  // verifyKeyMiddleware(process.env.PUBLIC_KEY),
   async function (req, res) {
     const { type, id, data } = req.body;
 
@@ -74,7 +64,7 @@ app.post(
             config
           );
           const overall = stats.data.data.stats.all.overall;
-          const userStats = `wins: ${overall.wins}\nkills: ${overall.kills}\nkd: ${overall.kd}`;
+          const userStats = `${username}\nwins: ${overall.wins}\nkills: ${overall.kills}\nkd: ${overall.kd}`;
           return res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
@@ -100,8 +90,9 @@ app.post(
   }
 );
 
-// app.listen(PORT, () => {
-//   console.log("Listening on port", PORT);
-// });
+if (process.env.ENVIRONMENT === "dev") {
+  app.listen(PORT, () => {
+    console.log("Listening on port", PORT);
+  });
+}
 export default app;
-// export const fortbot = onRequest(app);
