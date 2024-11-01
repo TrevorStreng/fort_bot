@@ -22,7 +22,7 @@ app.use(
 
 app.post(
   "/interactions",
-  // verifyKeyMiddleware(process.env.PUBLIC_KEY),
+  verifyKeyMiddleware(process.env.PUBLIC_KEY),
   async function (req, res) {
     const { type, id, data } = req.body;
 
