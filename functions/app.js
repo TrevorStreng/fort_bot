@@ -36,7 +36,7 @@ app.post(
       if (name === "drop") {
         const locations = await axios.get("https://fortnite-api.com/v1/map");
         let drops = locations.data.data.pois;
-        drops = drops.filter((el) => !el.id.includes("UnNamed"));
+        drops = drops.filter((el) => !el.id.includes("Unnamed"));
         const random = Math.floor(Math.random() * drops.length);
         const suggestedLocation = drops[random].name;
 
