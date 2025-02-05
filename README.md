@@ -14,7 +14,7 @@ First, make sure you have all the requirements installed on your local machine.
 
 ```
 # Clone the repository
-git clone https://github.com/TrevorStreng/fort_bot
+git clone https://github.com/TrevorStreng/fort_bot.git
 
 # Naviagte to directory
 cd fort_bot/functions
